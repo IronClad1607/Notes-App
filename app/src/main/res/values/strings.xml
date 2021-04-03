@@ -4,4 +4,9 @@
     <string name="add_a_note">Add a Note</string>
     <string name="profile">Profile</string>
     <string name="no_notes_available">No Notes Available!</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="priority">Priority</string>
+    <string name="label">Label</string>
+    <string name="close">Close</string>
 </resources>

@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ironclad.notesapp.databinding.FragmentAddNoteBinding
 
-class AddNoteFragment : Fragment() {
+class AddNoteFragment : BottomSheetDialogFragment() {
 
     private var binding: FragmentAddNoteBinding? = null
 

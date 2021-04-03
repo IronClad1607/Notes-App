@@ -50,7 +50,7 @@
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
 
-    <fragment
+    <dialog
         android:id="@+id/addNoteFragment"
         android:name="com.ironclad.notesapp.view.fragments.AddNoteFragment"
         android:label="AddNoteFragment"

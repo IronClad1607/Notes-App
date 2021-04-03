@@ -4,7 +4,7 @@
     <color name="notes_green_dark">#347634</color>
     <color name="notes_grey">#818A91</color>
     <color name="notes_grey_dark">#4B5359</color>
-    <color name="white">#EFEFEF</color>
+    <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="notes_green_transparent">#60347634</color>
 </resources>
