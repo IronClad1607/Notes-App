@@ -13,12 +13,27 @@
         <action
             android:id="@+id/goToLoginScreen"
             app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/goToHomeFromSplash"
+            app:destination="@id/homeFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.ironclad.notesapp.view.fragments.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/goToHomeFromLogin"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ironclad.notesapp.view.fragments.HomeFragment"
+        android:label="Home Screen"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>
