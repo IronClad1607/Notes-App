@@ -18,9 +18,9 @@
             android:id="@+id/toolbar_home"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:theme="@style/ToolbarStyle"
             app:menu="@menu/toolbar_menu"
             app:title="@string/home"
-            android:theme="@style/ToolbarStyle"
             app:titleTextAppearance="@style/TitleBarTextAppearance"
             app:titleTextColor="@color/white" />
 
@@ -30,9 +30,24 @@
         android:id="@+id/recycler_view_notes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appbar_home" />
+
+    <TextView
+        android:id="@+id/tv_no_notes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/titillium_web_bold"
+        android:gravity="center"
+        android:text="@string/no_notes_available"
+        android:textColor="@color/notes_green"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appbar_home" />
 
