@@ -20,8 +20,6 @@ import com.ironclad.notesapp.utils.Constants.Companion.ERROR_TAG
 import com.ironclad.notesapp.utils.extensions.getCurrentTime
 import com.ironclad.notesapp.view.viewmodels.AddNoteViewModel
 import com.ironclad.notesapp.view.viewmodels.AddNoteViewModelFactory
-import com.ironclad.notesapp.view.viewmodels.HomeViewModel
-import com.ironclad.notesapp.view.viewmodels.HomeViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

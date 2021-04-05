@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ironclad.notesapp.R
 import com.ironclad.notesapp.data.NoteDatabase
 import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentHomeBinding
 import com.ironclad.notesapp.utils.Constants.Companion.VALUE_TAG
+import com.ironclad.notesapp.utils.extensions.getNoOfColumns
+import com.ironclad.notesapp.view.adapter.NotesAdapter
 import com.ironclad.notesapp.view.viewmodels.HomeViewModel
 import com.ironclad.notesapp.view.viewmodels.HomeViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +29,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModelFactory: HomeViewModelFactory
     private lateinit var noteDatabase: NoteDatabase
     private lateinit var repo: NoteRepo
+    private lateinit var mAdapter: NotesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,7 @@ class HomeFragment : Fragment() {
         repo = NoteRepo(noteDatabase)
         viewModelFactory = HomeViewModelFactory(repo)
         viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
+        mAdapter = NotesAdapter(requireContext())
     }
 
     override fun onCreateView(
@@ -55,6 +60,12 @@ class HomeFragment : Fragment() {
             findNavController().navigate(HomeFragmentDirections.goToAddANote())
         }
 
+        binding?.recyclerViewNotes?.apply {
+            layoutManager =
+                GridLayoutManager(requireContext(), getNoOfColumns(150, requireContext()))
+            adapter = mAdapter
+        }
+
         showData()
     }
 
@@ -67,6 +78,7 @@ class HomeFragment : Fragment() {
                 } else {
                     binding?.tvNoNotes?.visibility = View.GONE
                     binding?.recyclerViewNotes?.visibility = View.VISIBLE
+                    mAdapter.submitList(notes)
                 }
 
             })

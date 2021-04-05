@@ -100,7 +100,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/dropdown_priority"
-        style="@style/Widget.App.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="100dp"
         android:layout_height="59dp"
         android:layout_marginTop="10dp"

@@ -10,7 +10,7 @@ interface NoteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNote(note: Note): Long
 
-    @Query("SELECT * FROM notes_table")
+    @Query("SELECT * FROM notes_table ORDER BY priority ASC")
     fun getAllNotes(): LiveData<List<Note>>
 
     @Delete
