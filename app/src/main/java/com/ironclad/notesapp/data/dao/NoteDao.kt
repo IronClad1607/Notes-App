@@ -8,13 +8,10 @@ import com.ironclad.notesapp.data.models.Note
 interface NoteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addNote(note: Note)
+    suspend fun addNote(note: Note): Long
 
-    @Query("SELECT * FROM Note ORDER BY priority DESC")
+    @Query("SELECT * FROM notes_table")
     fun getAllNotes(): LiveData<List<Note>>
-
-    @Query("SELECT * FROM Note WHERE id =:id")
-    fun getANote(id: Long): LiveData<Note>
 
     @Delete
     suspend fun deleteNote(note: Note)

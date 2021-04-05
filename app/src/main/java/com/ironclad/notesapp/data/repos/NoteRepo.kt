@@ -1,22 +1,13 @@
 package com.ironclad.notesapp.data.repos
 
-import android.content.Context
+import androidx.lifecycle.LiveData
 import com.ironclad.notesapp.data.NoteDatabase
-import com.ironclad.notesapp.data.dao.NoteDao
 import com.ironclad.notesapp.data.models.Note
 
-class NoteRepo(context: Context) {
+class NoteRepo(private val noteDatabase: NoteDatabase) {
 
-    private var notesDao: NoteDao?
-
-    init {
-        val db = NoteDatabase.getDatabase(context)
-        notesDao = db?.noteDao()
-    }
-
-    suspend fun getAllNote() = notesDao?.getAllNotes()
-    suspend fun getNote(id: Long) = notesDao?.getANote(id)
-    suspend fun addNote(note: Note) = notesDao?.addNote(note)
-    suspend fun deleteNote(note: Note) = notesDao?.deleteNote(note)
-    suspend fun updateNote(note: Note) = notesDao?.updateNote(note)
+    suspend fun addNote(note: Note) = noteDatabase.noteDao().addNote(note)
+    suspend fun updateNote(note: Note) = noteDatabase.noteDao().updateNote(note)
+    suspend fun deleteNote(note: Note) = noteDatabase.noteDao().deleteNote(note)
+    fun getAllNotes(): LiveData<List<Note>> = noteDatabase.noteDao().getAllNotes()
 }

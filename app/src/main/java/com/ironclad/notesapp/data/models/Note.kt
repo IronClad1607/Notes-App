@@ -6,13 +6,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity
+@Entity(tableName = "notes_table")
 @Parcelize
 data class Note(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long = 0,
-
     @ColumnInfo(name = "title")
     var title: String,
 
@@ -29,5 +25,9 @@ data class Note(
     var priority: Int,
 
     @ColumnInfo(name = "label")
-    var label: String
+    var label: String,
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long = 0
 ) : Parcelable

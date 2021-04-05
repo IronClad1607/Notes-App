@@ -6,13 +6,14 @@ import com.ironclad.notesapp.data.models.Note
 import com.ironclad.notesapp.data.repos.NoteRepo
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val repo: NoteRepo) : ViewModel() {
-    fun getAllNotes() = repo.getAllNotes()
+class AddNoteViewModel(private val repo: NoteRepo) : ViewModel() {
+    suspend fun insertNote(note: Note) = repo.addNote(note)
 }
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModelFactory(private val repo: NoteRepo) : ViewModelProvider.Factory {
+class AddNoteViewModelFactory(private val repo: NoteRepo) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeViewModel(repo) as T
+        return AddNoteViewModel(repo) as T
     }
+
 }
