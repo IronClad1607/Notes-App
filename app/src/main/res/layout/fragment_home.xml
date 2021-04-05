@@ -9,6 +9,7 @@
         android:id="@+id/appbar_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/notes_green"
         android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ToolbarStyle"
             app:menu="@menu/toolbar_menu"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
             app:title="@string/home"
             app:titleTextAppearance="@style/TitleBarTextAppearance"
             app:titleTextColor="@color/white" />

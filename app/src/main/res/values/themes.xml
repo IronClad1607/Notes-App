@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/notes_green</item>
         <item name="colorPrimaryVariant">@color/notes_green_dark</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSurface">@color/white </item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/notes_grey</item>
         <item name="colorSecondaryVariant">@color/notes_grey_dark</item>
@@ -33,4 +34,20 @@
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.ActionBar.Primary">
         <item name="android:tint">@color/white</item>
     </style>
+
+    <style name="Widget.App.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.ExposedDropdownMenu</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+        <item name="popupMenuBackground">@drawable/popmenu_background</item>
+        <item name="endIconTint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.ExposedDropdownMenu" parent="">
+        <item name="colorPrimary">@color/notes_green</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="autoCompleteTextViewStyle">
+            @style/Widget.MaterialComponents.AutoCompleteTextView.OutlinedBox
+        </item>
+    </style>
+
 </resources>
