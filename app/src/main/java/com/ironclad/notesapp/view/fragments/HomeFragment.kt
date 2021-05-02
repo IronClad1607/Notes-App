@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,13 +17,14 @@ import com.ironclad.notesapp.databinding.FragmentHomeBinding
 import com.ironclad.notesapp.utils.Constants.Companion.VALUE_TAG
 import com.ironclad.notesapp.utils.extensions.getNoOfColumns
 import com.ironclad.notesapp.view.adapter.NotesAdapter
+import com.ironclad.notesapp.view.adapter.OnItemClickListener
 import com.ironclad.notesapp.view.viewmodels.HomeViewModel
 import com.ironclad.notesapp.view.viewmodels.HomeViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnItemClickListener {
 
     private var binding: FragmentHomeBinding? = null
     private lateinit var viewModel: HomeViewModel
@@ -38,7 +40,7 @@ class HomeFragment : Fragment() {
         repo = NoteRepo(noteDatabase)
         viewModelFactory = HomeViewModelFactory(repo)
         viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
-        mAdapter = NotesAdapter(requireContext())
+        mAdapter = NotesAdapter(requireContext(), this)
     }
 
     override fun onCreateView(
@@ -102,5 +104,13 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    override fun onItemClick(id: Long) {
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.getANote(id).observe(requireActivity(), { note ->
+                findNavController().navigate(HomeFragmentDirections.goToNote(note))
+            })
+        }
     }
 }

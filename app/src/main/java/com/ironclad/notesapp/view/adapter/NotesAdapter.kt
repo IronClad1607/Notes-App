@@ -12,7 +12,10 @@ import com.ironclad.notesapp.R
 import com.ironclad.notesapp.data.models.Note
 import com.ironclad.notesapp.databinding.ItemNotesBinding
 
-class NotesAdapter(private val context: Context) :
+class NotesAdapter(
+    private val context: Context,
+    private val listener: OnItemClickListener
+) :
     ListAdapter<Note, NotesAdapter.NoteViewHolder>(object : DiffUtil.ItemCallback<Note>() {
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem == newItem
@@ -24,7 +27,17 @@ class NotesAdapter(private val context: Context) :
 
     }) {
 
-    inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val note = getItem(adapterPosition)
+            if (adapterPosition != RecyclerView.NO_POSITION) listener.onItemClick(note.id)
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val binding = ItemNotesBinding.inflate(LayoutInflater.from(parent.context), parent, false)

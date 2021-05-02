@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repo: NoteRepo) : ViewModel() {
     fun getAllNotes() = repo.getAllNotes()
+
+    fun getANote(id: Long) = repo.getANote(id)
 }
 
 @Suppress("UNCHECKED_CAST")

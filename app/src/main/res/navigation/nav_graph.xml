@@ -42,6 +42,14 @@
         <action
             android:id="@+id/goToProfile"
             app:destination="@id/profileFragment" />
+
+        <action
+            android:id="@+id/goToNote"
+            app:destination="@id/noteFragment">
+            <argument
+                android:name="note"
+                app:argType="com.ironclad.notesapp.data.models.Note" />
+        </action>
     </fragment>
 
     <fragment
@@ -56,5 +64,15 @@
         android:label="AddNoteFragment"
         tools:layout="@layout/fragment_add_note" />
 
+
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="com.ironclad.notesapp.view.fragments.NoteFragment"
+        android:label="Note Fragment"
+        tools:layout="@layout/fragment_note">
+        <argument
+            android:name="note"
+            app:argType="com.ironclad.notesapp.data.models.Note" />
+    </fragment>
 
 </navigation>
