@@ -1,15 +1,19 @@
 package com.ironclad.notesapp.view.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ironclad.notesapp.R
 import com.ironclad.notesapp.data.NoteDatabase
@@ -57,6 +61,27 @@ class AddNoteFragment : BottomSheetDialogFragment() {
         return binding?.root
     }
 
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = BottomSheetDialog(requireContext(), theme)
+
+        dialog.setOnShowListener { dialog ->
+            val bottomSheetDialog = dialog as BottomSheetDialog
+            val parentLayout =
+                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheetDialog.setCancelable(false)
+
+            parentLayout?.let {
+                val behavior = BottomSheetBehavior.from(it)
+                setUpFullHeight(it)
+                behavior.isHideable = false
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+
+        return dialog
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -101,5 +126,11 @@ class AddNoteFragment : BottomSheetDialogFragment() {
     override fun onDestroy() {
         binding = null
         super.onDestroy()
+    }
+
+    private fun setUpFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
     }
 }
