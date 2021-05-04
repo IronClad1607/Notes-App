@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.ironclad.notesapp.databinding.FragmentNoteBinding
 
@@ -25,6 +24,9 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val note = args.note
+
+        binding?.toolbarNote?.title = note.title
     }
 
     override fun onDestroy() {

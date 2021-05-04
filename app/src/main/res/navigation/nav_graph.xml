@@ -12,11 +12,15 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/goToLoginScreen"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
             android:id="@+id/goToHomeFromSplash"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -26,7 +30,9 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/goToHomeFromLogin"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
 
@@ -37,15 +43,21 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/goToAddANote"
-            app:destination="@id/addNoteFragment" />
+            app:destination="@id/addNoteFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
             android:id="@+id/goToProfile"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
             android:id="@+id/goToNote"
-            app:destination="@id/noteFragment">
+            app:destination="@id/noteFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim">
             <argument
                 android:name="note"
                 app:argType="com.ironclad.notesapp.data.models.Note" />
