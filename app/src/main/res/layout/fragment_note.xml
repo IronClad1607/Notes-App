@@ -29,4 +29,75 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/messageGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/midGuideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/text_view_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/titillium_web"
+        android:gravity="top|start"
+        android:lines="15"
+        android:maxLines="20"
+        android:scrollbars="vertical"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@id/messageGuideline"
+        app:layout_constraintEnd_toEndOf="@id/endGuideline"
+        app:layout_constraintStart_toStartOf="@id/startGuideline"
+        app:layout_constraintTop_toBottomOf="@id/appbar_note"
+        tools:text="@string/dummy_text" />
+
+    <TextView
+        android:id="@+id/text_view_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/titillium_web"
+        android:gravity="end"
+        android:textSize="13sp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/text_view_updated_headline"
+        app:layout_constraintTop_toBottomOf="@id/text_view_content"
+        tools:text="07:56,05 Apr '21" />
+
+    <TextView
+        android:id="@+id/text_view_updated_headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/titillium_web"
+        android:gravity="end"
+        android:text="@string/updated_at"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/midGuideline"
+        app:layout_constraintTop_toBottomOf="@id/text_view_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>
