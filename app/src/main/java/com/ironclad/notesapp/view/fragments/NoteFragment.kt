@@ -25,7 +25,6 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.tvNoteTitle?.text = args.note.title
     }
 
     override fun onDestroy() {
