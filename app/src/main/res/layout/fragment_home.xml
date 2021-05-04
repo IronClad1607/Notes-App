@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="@style/ToolbarStyle"
-            app:menu="@menu/toolbar_menu"
+            app:menu="@menu/toolbar_menu_home"
             app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
             app:title="@string/home"
             app:titleTextAppearance="@style/TitleBarTextAppearance"
