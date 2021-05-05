@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notes App</string>
+    <string name="app_name">Notes Drive</string>
     <string name="home">Home</string>
     <string name="add_a_note">Add a Note</string>
     <string name="profile">Profile</string>
