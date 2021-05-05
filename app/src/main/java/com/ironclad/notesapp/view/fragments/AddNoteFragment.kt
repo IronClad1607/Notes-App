@@ -17,11 +17,13 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ironclad.notesapp.R
 import com.ironclad.notesapp.data.NoteDatabase
+import com.ironclad.notesapp.data.models.Label
 import com.ironclad.notesapp.data.models.Note
 import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentAddNoteBinding
 import com.ironclad.notesapp.utils.Constants.Companion.ERROR_TAG
 import com.ironclad.notesapp.utils.extensions.getCurrentTime
+import com.ironclad.notesapp.view.adapter.SpinnerAdapter
 import com.ironclad.notesapp.view.viewmodels.AddNoteViewModel
 import com.ironclad.notesapp.view.viewmodels.AddNoteViewModelFactory
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +35,15 @@ class AddNoteFragment : BottomSheetDialogFragment() {
     private var binding: FragmentAddNoteBinding? = null
     private val priorityItems = listOf("1", "2", "3", "4", "5")
     private val labelItems =
-        listOf("Passwords", "Shopping List", "Task", "Messages", "List", "Ideas", "Other")
+        listOf(
+            Label("Passwords", R.color.violet),
+            Label("Shopping List", R.color.blue),
+            Label("Task", R.color.red),
+            Label("Messages", R.color.yellow),
+            Label("List", R.color.indigo),
+            Label("Ideas", R.color.green),
+            Label("Other", R.color.orange)
+        )
     private var priority = ""
     private var label = ""
 
@@ -86,7 +96,7 @@ class AddNoteFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val priorityAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, priorityItems)
-        val labelAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, labelItems)
+        val labelAdapter = SpinnerAdapter(requireContext(),labelItems)
         (binding?.dropdownPriority?.editText as AutoCompleteTextView).setAdapter(priorityAdapter)
         (binding?.dropdownLabel?.editText as AutoCompleteTextView).setAdapter(labelAdapter)
 
@@ -99,7 +109,7 @@ class AddNoteFragment : BottomSheetDialogFragment() {
         }
 
         (binding?.dropdownLabel?.editText as AutoCompleteTextView).setOnItemClickListener { _, _, position, _ ->
-            label = labelItems[position]
+            label = labelItems[position].name
         }
 
         binding?.buttonSave?.setOnClickListener {
