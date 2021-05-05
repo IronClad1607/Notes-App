@@ -2,6 +2,7 @@ package com.ironclad.notesapp.view.fragments
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -110,6 +111,7 @@ class AddNoteFragment : BottomSheetDialogFragment() {
 
         (binding?.dropdownLabel?.editText as AutoCompleteTextView).setOnItemClickListener { _, _, position, _ ->
             label = labelItems[position].name
+            binding?.editTextLabel?.text = label.toEditable()
         }
 
         binding?.buttonSave?.setOnClickListener {
@@ -143,4 +145,6 @@ class AddNoteFragment : BottomSheetDialogFragment() {
         layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
         bottomSheet.layoutParams = layoutParams
     }
+
+    private fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
 }
