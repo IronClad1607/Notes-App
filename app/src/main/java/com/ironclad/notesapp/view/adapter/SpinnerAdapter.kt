@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat
 import com.ironclad.notesapp.data.models.Label
 import com.ironclad.notesapp.databinding.DropdownItemLabelBinding
 
