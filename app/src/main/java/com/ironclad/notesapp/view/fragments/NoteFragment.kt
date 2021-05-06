@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -66,6 +67,8 @@ class NoteFragment : Fragment() {
                 R.id.item_delete -> {
                     CoroutineScope(Dispatchers.Main).launch {
                         viewModel.deleteNote(note).also {
+                            Toast.makeText(requireContext(), "Note Deleted", Toast.LENGTH_SHORT)
+                                .show()
                             findNavController().navigateUp()
                         }
                     }
