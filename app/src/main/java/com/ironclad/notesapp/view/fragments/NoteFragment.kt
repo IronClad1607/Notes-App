@@ -51,24 +51,13 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val note = args.note
 
-        handleMenu(note)
+        val noteId = args.noteId
 
-        binding?.toolbarNote?.title = note.title
-        binding?.textViewContent?.text = note.message
-        binding?.toolbarNote?.background = when (note.label) {
-            "Passwords" -> setColor(R.color.violet)
-            "Shopping List" -> setColor(R.color.blue)
-            "Task" -> setColor(R.color.red)
-            "Messages" -> setColor(R.color.yellow)
-            "List" -> setColor(R.color.indigo)
-            "Ideas" -> setColor(R.color.green)
-            "Other" -> setColor(R.color.orange)
-            else -> setColor(R.color.notes_green)
-        }
+        viewModel.getNote(noteId).observe(requireActivity(), { note ->
+            inflateValues(note)
+        })
 
-        binding?.textViewUpdated?.text = note.updateAt
     }
 
     private fun handleMenu(note: Note) {
@@ -93,6 +82,25 @@ class NoteFragment : Fragment() {
 
     private fun setColor(color: Int): Drawable? {
         return ContextCompat.getDrawable(requireContext(), color)
+    }
+
+    private fun inflateValues(note: Note?) {
+        note?.let { handleMenu(it) }
+
+        binding?.toolbarNote?.title = note?.title
+        binding?.textViewContent?.text = note?.message
+        binding?.toolbarNote?.background = when (note?.label) {
+            "Passwords" -> setColor(R.color.violet)
+            "Shopping List" -> setColor(R.color.blue)
+            "Task" -> setColor(R.color.red)
+            "Messages" -> setColor(R.color.yellow)
+            "List" -> setColor(R.color.indigo)
+            "Ideas" -> setColor(R.color.green)
+            "Other" -> setColor(R.color.orange)
+            else -> setColor(R.color.notes_green)
+        }
+
+        binding?.textViewUpdated?.text = note?.updateAt
     }
 
     override fun onDestroy() {

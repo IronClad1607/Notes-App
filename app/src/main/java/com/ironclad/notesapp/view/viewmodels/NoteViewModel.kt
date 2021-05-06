@@ -7,6 +7,8 @@ import com.ironclad.notesapp.data.repos.NoteRepo
 
 class NoteViewModel(private val repo: NoteRepo) : ViewModel() {
     suspend fun deleteNote(note: Note) = repo.deleteNote(note)
+
+    fun getNote(id:Long) = repo.getANote(id)
 }
 
 @Suppress("UNCHECKED_CAST")

@@ -57,11 +57,7 @@
             android:id="@+id/goToNote"
             app:destination="@id/noteFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
-            app:exitAnim="@anim/nav_default_pop_exit_anim">
-            <argument
-                android:name="note"
-                app:argType="com.ironclad.notesapp.data.models.Note" />
-        </action>
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -83,8 +79,8 @@
         android:label="Note Fragment"
         tools:layout="@layout/fragment_note">
         <argument
-            android:name="note"
-            app:argType="com.ironclad.notesapp.data.models.Note" />
+            android:name="note_id"
+            app:argType="long" />
 
         <action
             android:id="@+id/goToEditNote"
