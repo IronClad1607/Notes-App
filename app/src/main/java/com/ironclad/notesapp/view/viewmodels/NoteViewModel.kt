@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.ironclad.notesapp.data.models.Note
 import com.ironclad.notesapp.data.repos.NoteRepo
 
-class AddNoteViewModel(private val repo: NoteRepo) : ViewModel() {
-    suspend fun insertNote(note: Note) = repo.addNote(note)
+class NoteViewModel(private val repo: NoteRepo) : ViewModel() {
+    suspend fun deleteNote(note: Note) = repo.deleteNote(note)
 }
 
 @Suppress("UNCHECKED_CAST")
-class AddNoteViewModelFactory(private val repo: NoteRepo) : ViewModelProvider.Factory {
+class NoteViewModelFactory(private val repo: NoteRepo) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return AddNoteViewModel(repo) as T
+        return NoteViewModel(repo) as T
     }
 
 }

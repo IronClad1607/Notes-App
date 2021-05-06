@@ -1,10 +1,8 @@
 package com.ironclad.notesapp.view.viewmodels
 
-import android.content.Context
-import androidx.lifecycle.*
-import com.ironclad.notesapp.data.models.Note
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.ironclad.notesapp.data.repos.NoteRepo
-import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repo: NoteRepo) : ViewModel() {
     fun getAllNotes() = repo.getAllNotes()
