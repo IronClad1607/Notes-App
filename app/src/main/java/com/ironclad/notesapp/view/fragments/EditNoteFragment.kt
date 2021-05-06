@@ -27,8 +27,8 @@ class EditNoteFragment : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
 
-        dialog.setOnShowListener { dialog ->
-            val bottomSheetDialog = dialog as BottomSheetDialog
+        dialog.setOnShowListener { dialogInner ->
+            val bottomSheetDialog = dialogInner as BottomSheetDialog
             val parentLayout =
                 bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
 
