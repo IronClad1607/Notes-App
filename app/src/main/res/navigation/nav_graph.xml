@@ -85,6 +85,18 @@
         <argument
             android:name="note"
             app:argType="com.ironclad.notesapp.data.models.Note" />
+
+        <action
+            android:id="@+id/goToEditNote"
+            app:destination="@id/editNoteFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
+
+    <dialog
+        android:id="@+id/editNoteFragment"
+        android:name="com.ironclad.notesapp.view.fragments.EditNoteFragment"
+        android:label="EditNoteFragment"
+        tools:layout="@layout/fragment_edit_note" />
 
 </navigation>

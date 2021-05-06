@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ironclad.notesapp.R
 import com.ironclad.notesapp.databinding.FragmentNoteBinding
@@ -27,6 +28,7 @@ class NoteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        handleMenu()
         val note = args.note
 
         binding?.toolbarNote?.title = note.title
@@ -43,6 +45,21 @@ class NoteFragment : Fragment() {
         }
 
         binding?.textViewUpdated?.text = note.updateAt
+    }
+
+    private fun handleMenu() {
+        binding?.toolbarNote?.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.item_delete -> {
+                    true
+                }
+                R.id.item_edit -> {
+                    findNavController().navigate(NoteFragmentDirections.goToEditNote())
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun setColor(color: Int): Drawable? {
