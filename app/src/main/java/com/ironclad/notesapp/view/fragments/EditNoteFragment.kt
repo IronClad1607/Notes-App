@@ -97,11 +97,11 @@ class EditNoteFragment : BottomSheetDialogFragment() {
             val id = note.id
             val label = if(labelGlobal.isBlank()) note.label else labelGlobal
             val priority = if (priorityGlobal.isBlank()) note.priority else priorityGlobal.toInt()
-            val note = Note(title, message, createdAt, updatedAt, priority, label, id)
+            val noteEdited = Note(title, message, createdAt, updatedAt, priority, label, id)
 
             CoroutineScope(Dispatchers.Main).launch {
-                viewModel.editNote(note).also {
-                    Toast.makeText(requireContext(), "Updated", Toast.LENGTH_SHORT).show()
+                viewModel.editNote(noteEdited).also {
+                    Toast.makeText(requireContext(), "Note Updated", Toast.LENGTH_SHORT).show()
                     findNavController().navigateUp()
                 }
             }
