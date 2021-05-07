@@ -95,8 +95,8 @@
         android:label="EditNoteFragment"
         tools:layout="@layout/fragment_edit_note">
         <argument
-            android:name="note_id"
-            app:argType="long" />
+            android:name="note"
+            app:argType="com.ironclad.notesapp.data.models.Note" />
     </dialog>
 
 </navigation>

@@ -66,12 +66,9 @@ class EditNoteFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val noteId = args.noteId
+        val note = args.note
 
-        viewModel.getANote(noteId).observe(requireActivity(), { it ->
-            inflateValues(it)
-            note = it
-        })
+        inflateValues(note)
 
         binding?.close?.setOnClickListener {
             findNavController().navigateUp()

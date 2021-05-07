@@ -75,7 +75,7 @@ class NoteFragment : Fragment() {
                     true
                 }
                 R.id.item_edit -> {
-                    findNavController().navigate(NoteFragmentDirections.goToEditNote(note.id))
+                    findNavController().navigate(NoteFragmentDirections.goToEditNote(note))
                     true
                 }
                 else -> false
