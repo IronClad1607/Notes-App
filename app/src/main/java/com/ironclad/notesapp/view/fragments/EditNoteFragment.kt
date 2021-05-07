@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,9 +20,13 @@ import com.ironclad.notesapp.data.NoteDatabase
 import com.ironclad.notesapp.data.models.Note
 import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentEditNoteBinding
+import com.ironclad.notesapp.utils.extensions.getCurrentTime
 import com.ironclad.notesapp.utils.extensions.toEditable
 import com.ironclad.notesapp.view.viewmodels.EditNoteViewModel
 import com.ironclad.notesapp.view.viewmodels.EditNoteViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EditNoteFragment : BottomSheetDialogFragment() {
     private var binding: FragmentEditNoteBinding? = null
@@ -36,8 +41,9 @@ class EditNoteFragment : BottomSheetDialogFragment() {
     private val priorityItems = listOf("1", "2", "3", "4", "5")
     private val labelItems =
         listOf("Passwords", "Shopping List", "Task", "Messages", "List", "Ideas", "Other")
-    private var priority = ""
-    private var label = ""
+    private var priorityGlobal = ""
+    private var labelGlobal = ""
+    private lateinit var note: Note
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +68,9 @@ class EditNoteFragment : BottomSheetDialogFragment() {
 
         val noteId = args.noteId
 
-        viewModel.getANote(noteId).observe(requireActivity(), { note ->
-            inflateValues(note)
+        viewModel.getANote(noteId).observe(requireActivity(), { it ->
+            inflateValues(it)
+            note = it
         })
 
         binding?.close?.setOnClickListener {
@@ -78,11 +85,29 @@ class EditNoteFragment : BottomSheetDialogFragment() {
 
 
         (binding?.dropdownPriority?.editText as AutoCompleteTextView).setOnItemClickListener { _, _, position, _ ->
-            priority = priorityItems[position]
+            priorityGlobal = priorityItems[position]
         }
 
         (binding?.dropdownLabel?.editText as AutoCompleteTextView).setOnItemClickListener { _, _, position, _ ->
-            label = labelItems[position]
+            labelGlobal = labelItems[position]
+        }
+
+        binding?.buttonSave?.setOnClickListener {
+            val title = binding?.editTextTitle?.editText?.text?.toString() ?: ""
+            val message = binding?.editTextMessage?.editText?.text?.toString() ?: ""
+            val createdAt = note.createdAt
+            val updatedAt = getCurrentTime()
+            val id = note.id
+            val label = if(labelGlobal.isBlank()) note.label else labelGlobal
+            val priority = if (priorityGlobal.isBlank()) note.priority else priorityGlobal.toInt()
+            val note = Note(title, message, createdAt, updatedAt, priority, label, id)
+
+            CoroutineScope(Dispatchers.Main).launch {
+                viewModel.editNote(note).also {
+                    Toast.makeText(requireContext(), "Updated", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                }
+            }
         }
     }
 
