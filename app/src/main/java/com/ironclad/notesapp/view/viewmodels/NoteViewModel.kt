@@ -1,20 +1,15 @@
 package com.ironclad.notesapp.view.viewmodels
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.ironclad.notesapp.data.models.Note
-import com.ironclad.notesapp.data.repos.NoteRepo
+import com.ironclad.notesapp.data.repos.NoteRepositoryImp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class NoteViewModel(private val repo: NoteRepo) : ViewModel() {
-    suspend fun deleteNote(note: Note) = repo.deleteNote(note)
+@HiltViewModel
+class NoteViewModel @Inject constructor(private val repository: NoteRepositoryImp) :
+    ViewModel() {
+    suspend fun deleteNote(note: Note) = repository.deleteNote(note)
 
-    fun getNote(id:Long) = repo.getANote(id)
-}
-
-@Suppress("UNCHECKED_CAST")
-class NoteViewModelFactory(private val repo: NoteRepo) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return NoteViewModel(repo) as T
-    }
-
+    fun getNote(id: Long) = repository.getANote(id)
 }

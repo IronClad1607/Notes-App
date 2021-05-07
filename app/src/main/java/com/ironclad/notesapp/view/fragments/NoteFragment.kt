@@ -8,37 +8,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.NoteDatabase
 import com.ironclad.notesapp.data.models.Note
-import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentNoteBinding
 import com.ironclad.notesapp.view.viewmodels.NoteViewModel
-import com.ironclad.notesapp.view.viewmodels.NoteViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class NoteFragment : Fragment() {
     private var binding: FragmentNoteBinding? = null
     private val args: NoteFragmentArgs by navArgs()
 
-    private lateinit var viewModel: NoteViewModel
-    private lateinit var viewModelFactory: NoteViewModelFactory
-    private lateinit var noteDatabase: NoteDatabase
-    private lateinit var repo: NoteRepo
+    private val viewModel by viewModels<NoteViewModel>()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        noteDatabase = NoteDatabase(requireContext())
-        repo = NoteRepo(noteDatabase)
-        viewModelFactory = NoteViewModelFactory(repo)
-        viewModel = ViewModelProvider(this, viewModelFactory)[NoteViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

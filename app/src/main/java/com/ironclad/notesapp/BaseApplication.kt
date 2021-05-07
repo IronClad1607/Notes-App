@@ -1,9 +1,7 @@
 package com.ironclad.notesapp
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-class BaseApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-    }
-}
+@HiltAndroidApp
+class BaseApplication : Application()

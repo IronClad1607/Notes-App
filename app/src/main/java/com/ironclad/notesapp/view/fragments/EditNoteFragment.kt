@@ -9,34 +9,29 @@ import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.NoteDatabase
 import com.ironclad.notesapp.data.models.Note
-import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentEditNoteBinding
 import com.ironclad.notesapp.utils.extensions.getCurrentTime
 import com.ironclad.notesapp.utils.extensions.toEditable
 import com.ironclad.notesapp.view.viewmodels.EditNoteViewModel
-import com.ironclad.notesapp.view.viewmodels.EditNoteViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class EditNoteFragment : BottomSheetDialogFragment() {
     private var binding: FragmentEditNoteBinding? = null
     private val args: EditNoteFragmentArgs by navArgs()
 
-    private lateinit var viewModel: EditNoteViewModel
-    private lateinit var viewModelFactory: EditNoteViewModelFactory
-    private lateinit var noteDatabase: NoteDatabase
-    private lateinit var repo: NoteRepo
-
+    private val viewModel by viewModels<EditNoteViewModel>()
 
     private val priorityItems = listOf("1", "2", "3", "4", "5")
     private val labelItems =
@@ -44,14 +39,6 @@ class EditNoteFragment : BottomSheetDialogFragment() {
     private var priorityGlobal = ""
     private var labelGlobal = ""
     private lateinit var note: Note
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        noteDatabase = NoteDatabase(requireContext())
-        repo = NoteRepo(noteDatabase)
-        viewModelFactory = EditNoteViewModelFactory(repo)
-        viewModel = ViewModelProvider(this, viewModelFactory)[EditNoteViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,7 +82,7 @@ class EditNoteFragment : BottomSheetDialogFragment() {
             val createdAt = note.createdAt
             val updatedAt = getCurrentTime()
             val id = note.id
-            val label = if(labelGlobal.isBlank()) note.label else labelGlobal
+            val label = if (labelGlobal.isBlank()) note.label else labelGlobal
             val priority = if (priorityGlobal.isBlank()) note.priority else priorityGlobal.toInt()
             val noteEdited = Note(title, message, createdAt, updatedAt, priority, label, id)
 

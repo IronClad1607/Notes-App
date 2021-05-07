@@ -5,38 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.NoteDatabase
-import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentHomeBinding
 import com.ironclad.notesapp.utils.extensions.getNoOfColumns
 import com.ironclad.notesapp.view.adapter.NotesAdapter
 import com.ironclad.notesapp.view.adapter.OnItemClickListener
 import com.ironclad.notesapp.view.viewmodels.HomeViewModel
-import com.ironclad.notesapp.view.viewmodels.HomeViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), OnItemClickListener {
 
     private var binding: FragmentHomeBinding? = null
-    private lateinit var viewModel: HomeViewModel
-    private lateinit var viewModelFactory: HomeViewModelFactory
-    private lateinit var noteDatabase: NoteDatabase
-    private lateinit var repo: NoteRepo
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var mAdapter: NotesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        noteDatabase = NoteDatabase(requireContext())
-        repo = NoteRepo(noteDatabase)
-        viewModelFactory = HomeViewModelFactory(repo)
-        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
         mAdapter = NotesAdapter(requireContext(), this)
     }
 
