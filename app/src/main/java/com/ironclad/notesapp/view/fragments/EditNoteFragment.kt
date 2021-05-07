@@ -122,7 +122,10 @@ class EditNoteFragment : BottomSheetDialogFragment() {
     private fun inflateValues(note: Note?) {
         binding?.editTextTitle?.editText?.text = note?.title?.toEditable()
         binding?.editTextMessage?.editText?.text = note?.message?.toEditable()
-//        (binding?.dropdownLabel?.editText as AutoCompleteTextView).text = note?.label?.toEditable()
-//        binding?.dropdownPriority?.editText?.text = note?.priority?.toString()?.toEditable()
+        (binding?.dropdownPriority?.editText as AutoCompleteTextView).setText(
+            note?.priority?.toString(),
+            false
+        )
+        (binding?.dropdownLabel?.editText as AutoCompleteTextView).setText(note?.label, false)
     }
 }
