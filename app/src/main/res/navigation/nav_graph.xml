@@ -93,6 +93,10 @@
         android:id="@+id/editNoteFragment"
         android:name="com.ironclad.notesapp.view.fragments.EditNoteFragment"
         android:label="EditNoteFragment"
-        tools:layout="@layout/fragment_edit_note" />
+        tools:layout="@layout/fragment_edit_note">
+        <argument
+            android:name="note_id"
+            app:argType="long" />
+    </dialog>
 
 </navigation>
