@@ -10,24 +10,23 @@ import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.NoteDatabase
 import com.ironclad.notesapp.data.models.Note
-import com.ironclad.notesapp.data.repos.NoteRepo
 import com.ironclad.notesapp.databinding.FragmentAddNoteBinding
 import com.ironclad.notesapp.utils.Constants.Companion.ERROR_TAG
 import com.ironclad.notesapp.utils.extensions.getCurrentTime
 import com.ironclad.notesapp.view.viewmodels.AddNoteViewModel
-import com.ironclad.notesapp.view.viewmodels.AddNoteViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class AddNoteFragment : BottomSheetDialogFragment() {
 
     private var binding: FragmentAddNoteBinding? = null
@@ -37,19 +36,8 @@ class AddNoteFragment : BottomSheetDialogFragment() {
     private var priority = ""
     private var label = ""
 
-    private lateinit var viewModel: AddNoteViewModel
-    private lateinit var viewModelFactory: AddNoteViewModelFactory
-    private lateinit var noteDatabase: NoteDatabase
-    private lateinit var repo: NoteRepo
+    private val viewModel by viewModels<AddNoteViewModel>()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        noteDatabase = NoteDatabase(requireContext())
-        repo = NoteRepo(noteDatabase)
-        viewModelFactory = AddNoteViewModelFactory(repo)
-        viewModel = ViewModelProvider(this, viewModelFactory)[AddNoteViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
