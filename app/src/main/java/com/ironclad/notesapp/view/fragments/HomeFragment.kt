@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ironclad.notesapp.R
 import com.ironclad.notesapp.databinding.FragmentHomeBinding
+import com.ironclad.notesapp.utils.SharedPreferenceHelper
 import com.ironclad.notesapp.utils.extensions.getNoOfColumns
 import com.ironclad.notesapp.view.adapter.NotesAdapter
 import com.ironclad.notesapp.view.adapter.OnItemClickListener
@@ -25,10 +26,11 @@ class HomeFragment : Fragment(), OnItemClickListener {
     private var binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var mAdapter: NotesAdapter
+    private lateinit var preferenceManager: SharedPreferenceHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        preferenceManager = SharedPreferenceHelper.getInstance(requireContext())
         mAdapter = NotesAdapter(requireContext(), this)
     }
 
@@ -44,7 +46,8 @@ class HomeFragment : Fragment(), OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        handleMenu()
+        handleMenuClick()
+        handleMenuInflate()
         viewModel.getAllNotes()
 
         binding?.buttonAdd?.setOnClickListener {
@@ -58,6 +61,16 @@ class HomeFragment : Fragment(), OnItemClickListener {
         }
 
         showData()
+    }
+
+    private fun handleMenuInflate() {
+        if (preferenceManager.loginSkipped && !preferenceManager.userLoggedIn) {
+            binding?.toolbarHome?.menu?.clear()
+            binding?.toolbarHome?.inflateMenu(R.menu.toolbar_menu_home_skipped)
+        } else if (preferenceManager.userLoggedIn && !preferenceManager.loginSkipped) {
+            binding?.toolbarHome?.menu?.clear()
+            binding?.toolbarHome?.inflateMenu(R.menu.toolbar_menu_home_logged_in)
+        }
     }
 
     private fun showData() {
@@ -76,11 +89,15 @@ class HomeFragment : Fragment(), OnItemClickListener {
         }
     }
 
-    private fun handleMenu() {
+    private fun handleMenuClick() {
         binding?.toolbarHome?.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.item_profile -> {
                     findNavController().navigate(HomeFragmentDirections.goToProfile())
+                    true
+                }
+                R.id.item_login -> {
+                    findNavController().navigate(HomeFragmentDirections.goToLogin())
                     true
                 }
                 else -> {

@@ -6,8 +6,9 @@ import android.content.SharedPreferences
 class SharedPreferenceHelper {
 
     companion object {
-        const val PREF_NAME = "notes app"
+        private const val PREF_NAME = "notes app"
         const val USER_LOGGED_IN = "user_logged_in"
+        const val LOGGED_IN_SKIPPED = "logged_in_skipped"
         private var prefs: SharedPreferences? = null
 
         @Volatile
@@ -34,5 +35,11 @@ class SharedPreferenceHelper {
             edit?.apply()
         }
 
-
+    var loginSkipped: Boolean
+        get() = prefs?.getBoolean(LOGGED_IN_SKIPPED, false)!!
+        set(value) {
+            val edit = prefs?.edit()
+            edit?.putBoolean(LOGGED_IN_SKIPPED, value)
+            edit?.apply()
+        }
 }

@@ -58,6 +58,11 @@ class LoginFragment : Fragment() {
         binding?.btnSignIn?.setOnClickListener {
             signIn()
         }
+
+        binding?.btnSkipLogin?.setOnClickListener {
+            preferenceManager.loginSkipped = true
+            findNavController().navigate(LoginFragmentDirections.goToHomeFromLogin())
+        }
     }
 
     private fun signIn() {
@@ -81,7 +86,10 @@ class LoginFragment : Fragment() {
     private fun handleSignInResult(task: Task<GoogleSignInAccount>) {
         try {
             val account = task.getResult(ApiException::class.java)
-            preferenceManager.userLoggedIn = true
+            preferenceManager.apply {
+                userLoggedIn = true
+                loginSkipped = false
+            }
             Toast.makeText(requireContext(), "User Logged In Successfully", Toast.LENGTH_SHORT)
                 .show()
             findNavController().navigate(LoginFragmentDirections.goToHomeFromLogin())

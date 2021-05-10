@@ -18,4 +18,6 @@ Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris
     <string name="updated_at">Updated At:</string>
     <string name="edit_note">Edit Note</string>
     <string name="save_changes">Save Changes</string>
+    <string name="skip_login_for_now"><u>Skip Login for Now</u></string>
+    <string name="log_in">Login</string>
 </resources>
