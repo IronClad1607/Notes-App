@@ -1,5 +1,6 @@
 package com.ironclad.notesapp.view.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -30,6 +33,7 @@ class LoginFragment : Fragment() {
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var preferenceManager: SharedPreferenceHelper
+    private lateinit var handleSignIn: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +46,14 @@ class LoginFragment : Fragment() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+
+        handleSignIn =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    handleSignInResult(task)
+                }
+            }
 
         auth = Firebase.auth
     }
@@ -76,20 +88,12 @@ class LoginFragment : Fragment() {
 
     private fun signIn() {
         val signInIntent = mGoogleSignInClient?.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        handleSignIn.launch(signInIntent)
     }
 
     override fun onDestroy() {
         binding = null
         super.onDestroy()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-        }
     }
 
     private fun handleSignInResult(task: Task<GoogleSignInAccount>) {
@@ -106,7 +110,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun firebaseAuthWithGoogle(idToken: String?) {
-        val credentials =GoogleAuthProvider.getCredential(idToken,null)
+        val credentials = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credentials)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "User Logged In Successfully", Toast.LENGTH_SHORT)
@@ -116,9 +120,5 @@ class LoginFragment : Fragment() {
                 Toast.makeText(requireContext(), "Log In failed.", Toast.LENGTH_SHORT).show()
                 Log.e(ERROR_TAG, it.localizedMessage ?: "Failed")
             }
-    }
-
-    companion object {
-        const val RC_SIGN_IN = 9001
     }
 }
