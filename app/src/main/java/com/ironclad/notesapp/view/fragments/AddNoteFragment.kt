@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -20,6 +19,7 @@ import com.ironclad.notesapp.data.models.Note
 import com.ironclad.notesapp.databinding.FragmentAddNoteBinding
 import com.ironclad.notesapp.utils.Constants.Companion.ERROR_TAG
 import com.ironclad.notesapp.utils.extensions.getCurrentTime
+import com.ironclad.notesapp.utils.extensions.setUpFullHeight
 import com.ironclad.notesapp.view.viewmodels.AddNoteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -116,9 +116,4 @@ class AddNoteFragment : BottomSheetDialogFragment() {
         super.onDestroy()
     }
 
-    private fun setUpFullHeight(bottomSheet: View) {
-        val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
-        bottomSheet.layoutParams = layoutParams
-    }
 }

@@ -11,4 +11,5 @@ class NoteRepositoryImp @Inject constructor(private val noteDao: NoteDao) : Note
     override suspend fun addNote(note: Note): Long = noteDao.addNote(note)
     override suspend fun updateNote(note: Note) = noteDao.updateNote(note)
     override suspend fun deleteNote(note: Note) = noteDao.deleteNote(note)
+    override suspend fun clearDb() = noteDao.clearDb()
 }

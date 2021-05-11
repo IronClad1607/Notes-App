@@ -21,4 +21,7 @@ interface NoteDao {
 
     @Update
     suspend fun updateNote(note: Note)
+
+    @Query("DELETE FROM notes_table")
+    suspend fun clearDb()
 }

@@ -29,7 +29,7 @@ class SplashFragment : Fragment() {
         binding = FragmentSplashBinding.inflate(inflater, container, false)
 
         Handler().postDelayed({
-            if (preferenceManager.userLoggedIn){
+            if (preferenceManager.userLoggedIn || preferenceManager.loginSkipped){
                 findNavController().navigate(SplashFragmentDirections.goToHomeFromSplash())
             }else{
                 findNavController().navigate(SplashFragmentDirections.goToLoginScreen())
