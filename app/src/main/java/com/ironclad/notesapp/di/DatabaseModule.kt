@@ -2,7 +2,7 @@ package com.ironclad.notesapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.ironclad.notesapp.data.NoteDatabase
+import com.ironclad.notesapp.data.db.NoteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -22,19 +22,21 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : BottomSheetDialogFragment() {
 
     private var binding: FragmentProfileBinding? = null
-    private lateinit var auth: FirebaseAuth
     private lateinit var preferenceManager: SharedPreferenceHelper
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     private val viewModel by viewModels<ProfileViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
         preferenceManager = SharedPreferenceHelper.getInstance(requireContext())
     }
 

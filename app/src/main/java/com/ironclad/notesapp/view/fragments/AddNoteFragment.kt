@@ -15,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.models.Note
 import com.ironclad.notesapp.databinding.FragmentAddNoteBinding
 import com.ironclad.notesapp.utils.Constants.Companion.ERROR_TAG
 import com.ironclad.notesapp.utils.extensions.getCurrentTime

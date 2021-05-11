@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.models.Note
 import com.ironclad.notesapp.databinding.FragmentNoteBinding
 import com.ironclad.notesapp.view.viewmodels.NoteViewModel
 import dagger.hilt.android.AndroidEntryPoint

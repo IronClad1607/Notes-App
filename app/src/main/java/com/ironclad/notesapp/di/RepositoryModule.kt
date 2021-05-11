@@ -1,7 +1,7 @@
 package com.ironclad.notesapp.di
 
-import com.ironclad.notesapp.data.dao.NoteDao
-import com.ironclad.notesapp.data.repos.NoteRepositoryImp
+import com.ironclad.notesapp.data.db.dao.NoteDao
+import com.ironclad.notesapp.data.db.repos.NoteRepositoryImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

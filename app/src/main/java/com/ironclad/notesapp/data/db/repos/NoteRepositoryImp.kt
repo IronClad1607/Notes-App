@@ -1,8 +1,8 @@
-package com.ironclad.notesapp.data.repos
+package com.ironclad.notesapp.data.db.repos
 
 import androidx.lifecycle.LiveData
-import com.ironclad.notesapp.data.dao.NoteDao
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.dao.NoteDao
+import com.ironclad.notesapp.data.db.models.Note
 import javax.inject.Inject
 
 class NoteRepositoryImp @Inject constructor(private val noteDao: NoteDao) : NoteRepository {

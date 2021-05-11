@@ -1,4 +1,4 @@
-package com.ironclad.notesapp.data.models
+package com.ironclad.notesapp.data.db.models
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
