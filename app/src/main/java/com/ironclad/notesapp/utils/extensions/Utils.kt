@@ -2,6 +2,8 @@ package com.ironclad.notesapp.utils.extensions
 
 import android.content.Context
 import android.text.Editable
+import android.view.View
+import android.view.WindowManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,3 +18,9 @@ fun getNoOfColumns(columnWidth: Int, context: Context): Int {
 }
 
 fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
+
+fun setUpFullHeight(bottomSheet: View) {
+    val layoutParams = bottomSheet.layoutParams
+    layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+    bottomSheet.layoutParams = layoutParams
+}
