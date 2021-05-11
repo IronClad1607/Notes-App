@@ -2,10 +2,11 @@ package com.ironclad.notesapp.view.fragments
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import coil.load
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -13,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ironclad.notesapp.databinding.FragmentProfileBinding
-import com.ironclad.notesapp.utils.Constants.Companion.VALUE_TAG
 import com.ironclad.notesapp.utils.extensions.setUpFullHeight
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,17 +35,25 @@ class ProfileFragment : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val currentUser = auth.currentUser
-
-        Log.d(
-            VALUE_TAG, """
-            Name: ${currentUser?.displayName ?: "Blank"} 
-            Email: ${currentUser?.email ?: "Blank"}
-            Photo: ${currentUser?.photoUrl ?: "Blank"}
-        """.trimIndent()
-        )
-
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val user = auth.currentUser
+
+
+
+        binding?.apply {
+            imageViewProfilePicture.load(user?.photoUrl)
+            textViewEmail.text = user?.email
+            textViewName.text = user?.displayName
+
+            close.setOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
