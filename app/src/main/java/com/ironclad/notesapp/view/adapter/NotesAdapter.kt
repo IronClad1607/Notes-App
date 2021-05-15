@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ironclad.notesapp.R
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.models.Note
 import com.ironclad.notesapp.databinding.ItemNotesBinding
 
 class NotesAdapter(

@@ -1,8 +1,8 @@
-package com.ironclad.notesapp.data.dao
+package com.ironclad.notesapp.data.db.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.models.Note
 
 @Dao
 interface NoteDao {

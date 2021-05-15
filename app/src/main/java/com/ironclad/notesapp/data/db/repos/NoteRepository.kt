@@ -1,7 +1,7 @@
-package com.ironclad.notesapp.data.repos
+package com.ironclad.notesapp.data.db.repos
 
 import androidx.lifecycle.LiveData
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.models.Note
 
 interface NoteRepository {
     fun getAllNotes(): LiveData<List<Note>>

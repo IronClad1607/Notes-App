@@ -1,11 +1,11 @@
-package com.ironclad.notesapp.data
+package com.ironclad.notesapp.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ironclad.notesapp.data.dao.NoteDao
-import com.ironclad.notesapp.data.models.Note
+import com.ironclad.notesapp.data.db.dao.NoteDao
+import com.ironclad.notesapp.data.db.models.Note
 
 @Database(entities = [Note::class], version = 1, exportSchema = false)
 abstract class NoteDatabase : RoomDatabase() {

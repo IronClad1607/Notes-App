@@ -109,7 +109,7 @@
         tools:layout="@layout/fragment_edit_note">
         <argument
             android:name="note"
-            app:argType="com.ironclad.notesapp.data.models.Note" />
+            app:argType="com.ironclad.notesapp.data.db.models.Note" />
     </dialog>
 
 </navigation>

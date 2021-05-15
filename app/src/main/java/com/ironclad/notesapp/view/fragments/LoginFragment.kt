@@ -11,41 +11,35 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.ironclad.notesapp.R
 import com.ironclad.notesapp.databinding.FragmentLoginBinding
 import com.ironclad.notesapp.utils.Constants.Companion.ERROR_TAG
 import com.ironclad.notesapp.utils.SharedPreferenceHelper
+import com.ironclad.notesapp.view.viewmodels.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
     private var binding: FragmentLoginBinding? = null
-    private var mGoogleSignInClient: GoogleSignInClient? = null
-    private lateinit var auth: FirebaseAuth
     private lateinit var preferenceManager: SharedPreferenceHelper
     private lateinit var handleSignIn: ActivityResultLauncher<Intent>
+
+    private val viewModel by viewModels<LoginViewModel>()
+
+    @Inject
+    lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferenceManager = SharedPreferenceHelper.getInstance(requireContext())
-
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .requestProfile()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
 
         handleSignIn =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -54,8 +48,6 @@ class LoginFragment : Fragment() {
                     handleSignInResult(task)
                 }
             }
-
-        auth = Firebase.auth
     }
 
     override fun onCreateView(
@@ -103,22 +95,23 @@ class LoginFragment : Fragment() {
                 userLoggedIn = true
                 loginSkipped = false
             }
-            firebaseAuthWithGoogle(account?.idToken)
+            firebaseAuthWithGoogle(account!!)
         } catch (e: ApiException) {
             Log.e(ERROR_TAG, e.localizedMessage ?: "Failed")
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String?) {
-        val credentials = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credentials)
-            .addOnSuccessListener {
-                Toast.makeText(requireContext(), "User Logged In Successfully", Toast.LENGTH_SHORT)
-                    .show()
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        viewModel.signInWithGoogle(account)
+
+        viewModel.success.observe(requireActivity(), { success ->
+            if (success) {
+                Toast.makeText(requireContext(), "Login In Successfully", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(LoginFragmentDirections.goToHomeFromLogin())
-            }.addOnFailureListener {
-                Toast.makeText(requireContext(), "Log In failed.", Toast.LENGTH_SHORT).show()
-                Log.e(ERROR_TAG, it.localizedMessage ?: "Failed")
+            } else {
+                Toast.makeText(requireContext(), "Login In Failed", Toast.LENGTH_SHORT).show()
             }
+
+        })
     }
 }
