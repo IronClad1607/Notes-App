@@ -79,7 +79,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun signIn() {
-        val signInIntent = mGoogleSignInClient?.signInIntent
+        val signInIntent = mGoogleSignInClient.signInIntent
         handleSignIn.launch(signInIntent)
     }
 
