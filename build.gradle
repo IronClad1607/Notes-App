@@ -9,7 +9,7 @@ buildscript {
         lifecycle_version = "2.4.0"
         material_version = "1.4.0"
         room_version = "2.3.0"
-        google_auth_version = "19.2.0"
+        google_auth_version = "20.3.0"
         constraint_layout_version = "2.1.2"
 
         junit_version = "4.13.2"
